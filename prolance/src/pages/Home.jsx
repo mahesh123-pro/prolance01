@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, Plus } from 'lucide-react';
 import Button from '../components/ui/Button';
 import api from '../lib/api';
 
@@ -39,6 +39,14 @@ export default function Home() {
                         className="flex-1 outline-none text-slate-700 dark:text-slate-200 placeholder:text-slate-400 bg-transparent text-sm"
                     />
                     <Button size="sm" className="rounded-full px-6">Search</Button>
+                </div>
+
+                <div className="fixed bottom-8 right-8 z-40">
+                    <Link to="/create-event">
+                        <Button className="rounded-full h-14 w-14 shadow-lg shadow-primary-500/20 hover:scale-105 transition-transform">
+                            <Plus className="h-6 w-6" />
+                        </Button>
+                    </Link>
                 </div>
             </section>
 
