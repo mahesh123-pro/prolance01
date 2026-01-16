@@ -21,14 +21,13 @@ const createEvent = (token) => {
     const eventData = JSON.stringify({
         title: "Future of AI Conference 2026",
         description: "Join us for an immersive deep dive into the latest advancements in Artificial Intelligence. Featuring keynote speakers from Google, OpenAI, and more.",
-        date: "April 15, 2026",
-        time: "09:00 AM",
         location: "Tech Hub Convention Center, San Francisco",
         type: "Conference", // Workshop, Seminar, etc.
-        price: 299,
         image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=2070&auto=format&fit=crop",
         maxSeats: 500,
-        startDate: new Date('2026-04-15').toISOString()
+        startDate: new Date('2026-04-15').toISOString(),
+        endDate: new Date('2026-04-16').toISOString(),
+        deadline: new Date('2026-04-10').toISOString()
     });
 
     const eventOptions = {
