@@ -9,12 +9,15 @@ const auth = async (req, res, next) => {
         req.userId = decodedData?.id;
         req.role = decodedData?.role;
 
-        if (req.role !== 'ADMIN') return res.status(403).json({ message: "Access denied" });
-
         next();
     } catch (error) {
         res.status(401).json({ message: "Unauthenticated" });
     }
+};
+
+export const isAdmin = (req, res, next) => {
+    if (req.role !== 'ADMIN') return res.status(403).json({ message: "Access denied. Admin only." });
+    next();
 };
 
 export default auth;

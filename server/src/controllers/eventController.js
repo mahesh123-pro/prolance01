@@ -6,7 +6,7 @@ export const getEvents = async (req, res) => {
     try {
         const events = await prisma.event.findMany({
             orderBy: { startDate: 'asc' },
-            where: { deletedAt: null },
+            where: { deletedAt: null, status: 'APPROVED' },
             include: { _count: { select: { registrations: true } } }
         });
         const formattedEvents = events.map(event => ({
@@ -33,12 +33,40 @@ export const getEvent = async (req, res) => {
     }
 }
 
+export const getAllEvents = async (req, res) => {
+    try {
+        const events = await prisma.event.findMany({
+            orderBy: { createdAt: 'desc' },
+            where: { deletedAt: null },
+            include: { _count: { select: { registrations: true } } }
+        });
+        res.json(events);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 export const createEvent = async (req, res) => {
     try {
-        const event = await prisma.event.create({ data: req.body });
+        // Force status to PENDING
+        const eventData = { ...req.body, status: 'PENDING' };
+        const event = await prisma.event.create({ data: eventData });
         res.status(201).json(event);
     } catch (error) {
         res.status(409).json({ message: error.message });
+    }
+}
+
+export const approveEvent = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const event = await prisma.event.update({
+            where: { id },
+            data: { status: 'APPROVED' }
+        });
+        res.json(event);
+    } catch (error) {
+        res.status(404).json({ message: "Event not found" });
     }
 }
 

@@ -14,11 +14,11 @@ function App() {
           <Route index element={<Home />} />
           <Route path="events/:id" element={<EventDetails />} />
           <Route path="login" element={<Login />} />
+          <Route path="create-event" element={<CreateEvent />} />
 
           {/* Admin Routes */}
           <Route path="admin" >
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="create-event" element={<CreateEvent />} />
             <Route path="edit-event/:id" element={<CreateEvent />} />
           </Route>
         </Route>
